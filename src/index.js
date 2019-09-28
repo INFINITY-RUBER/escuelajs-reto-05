@@ -1,17 +1,24 @@
 const $app = document.getElementById('app');
 const $observe = document.getElementById('observe');
 const API = 'https://rickandmortyapi.com/api/character/';
+// const API = 'https://us-central1-escuelajs-api.cloudfunctions.net/characters';
+
 
 const getData = api => {
   fetch(api)
     .then(response => response.json())
     .then(response => {
+      // debugger
       const characters = response.results;
+      localStorage.setItem('next_Dato', response.info.next);
+      const next_fetch = localStorage.getItem('next_Dato');
+      console.log('next_fetch: ', next_fetch)
+
       let output = characters.map(character => {
         return `
       <article class="Card">
         <img src="${character.image}" />
-        <h2>${character.name}<span>${character.species}</span></h2>
+        <h2>${character.name}<span>${character.species}</span><span>${character.id}</span></h2>
       </article>
     `
       }).join('');

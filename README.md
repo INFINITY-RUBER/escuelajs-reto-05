@@ -123,3 +123,57 @@ Si alguien quiere agregar o mejorar algo, lo invito a colaborar directamente en 
 
 ### Licencia
 escuelajs-reto-05 se lanza bajo la licencia [MIT](https://opensource.org/licenses/MIT).
+
+## SOLUCION AL RETO:
+
+
+### Primer problema
+ / SOLUCION:
+#### Existen dos formas de guardar datos en Storage, que son las siguiente``
+Opción 1 ->  `localStorage.setItem(name, content)`
+Opción 2 ->  `localStorage.name = content`
+
+#### Recuperar datos de Storage
+Opción 1 -> `localStorage.getItem(name, content)`
+Opción 2 -> `localStorage.name`
+
+#### Eliminar datos de Storage
+Para eliminar un elemento dentro de Storage haremos lo siguiente:
+`localStorage.removeItem(name)`
+#### Limpiar todo el Storage
+`localStorage.clear()`
+
+Y el API  de: // https://rickandmortyapi.com/api/character/  no brinda la proxima pagina en info.next
+
+```json
+{
+  "info": {
+    "count": 493,
+    "pages": 25,
+   ` "next": "https://rickandmortyapi.com/api/character/?page=2",`
+    "prev": ""
+  },
+  "results": [
+    {
+      "id": 1,
+      "name": "Rick Sanchez",
+      "status": "Alive",
+      "species": "Human",
+      "type": "",
+      "gender": "Male",
+      "origin": {
+        "name": "Earth (C-137)",
+        "url": "https://rickandmortyapi.com/api/location/1"
+      },
+```
+
+1. Guarda en localStorage la URL de la siguiente petición de personajes obtenida en la primera llamada a la API.
+2. Utiliza el nombre para la llave: 'next_fetch'.
+3. Comprueba que se ha guardado el valor 'next_fetch' en localStorage.
+```Javascript
+// debugger
+      const characters = response.results;
+      localStorage.setItem('next_Dato', response.info.next);
+      const next_fetch = localStorage.getItem('next_Dato');
+      console.log('next_fetch: ', next_fetch)
+```
