@@ -153,18 +153,7 @@ Y el API  de: // https://rickandmortyapi.com/api/character/  no brinda la proxim
    ` "next": "https://rickandmortyapi.com/api/character/?page=2",`
     "prev": ""
   },
-  "results": [
-    {
-      "id": 1,
-      "name": "Rick Sanchez",
-      "status": "Alive",
-      "species": "Human",
-      "type": "",
-      "gender": "Male",
-      "origin": {
-        "name": "Earth (C-137)",
-        "url": "https://rickandmortyapi.com/api/location/1"
-      },
+ 
 ```
 
 1. Guarda en localStorage la URL de la siguiente petición de personajes obtenida en la primera llamada a la API.
@@ -176,4 +165,39 @@ Y el API  de: // https://rickandmortyapi.com/api/character/  no brinda la proxim
       localStorage.setItem('next_Dato', response.info.next);
       const next_fetch = localStorage.getItem('next_Dato');
       console.log('next_fetch: ', next_fetch)
+```
+### Segundo Problema
+
+1. Obten los datos almacenados en localStorage de la llave: 'next_fetch'.
+```Javascript
+function next_fetch() {
+  // debugger
+  Next_fetch = localStorage.getItem('next_Dato');
+  
+  return Next_fetch;        
+}
+```
+2. Valida que exista un valor en 'next_fetch' o regresa el primer llamado de la API.
+3. Actualiza la función loadData() a Async/Await.
+```Javascript
+const loadData  = async () => {	  // debugger
+  
+  try {
+    if (next_fetch() === null) {
+      return await getData(API);
+    }
+    else if(next_fetch() === ''){
+      let messageContainer = document.createElement('h2');
+      messageContainer.innerHTML = 'SE TERMINARON TODOS LOS PERSONAJES....';
+      $app.appendChild(messageContainer);
+      intersectionObserver.unobserve($observe);
+    }
+    else {
+      return await getData(next_fetch());      
+    }
+          
+  } catch {
+    onError(`SE PRESENTO UN PROBLEMA`)
+    }   
+}
 ```
