@@ -180,7 +180,7 @@ function next_fetch() {
 2. Valida que exista un valor en 'next_fetch' o regresa el primer llamado de la API.
 3. Actualiza la función loadData() a Async/Await.
 ```Javascript
-const loadData  = async () => {	  // debugger
+const loadData  = async () => {	 
   
   try {
     if (next_fetch() === null) {
@@ -191,6 +191,7 @@ const loadData  = async () => {	  // debugger
       messageContainer.innerHTML = 'SE TERMINARON TODOS LOS PERSONAJES....';
       $app.appendChild(messageContainer);
       intersectionObserver.unobserve($observe);
+      Observer = false;
     }
     else {
       return await getData(next_fetch());      
@@ -198,6 +199,20 @@ const loadData  = async () => {	  // debugger
           
   } catch {
     onError(`SE PRESENTO UN PROBLEMA`)
-    }   
+    }    
+  	
 }
+const intersectionObserver = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    loadData();
+  }
+}, {
+  rootMargin: '0px 0px 100% 0px',
+});
+
+if (Observer === true) {
+  intersectionObserver.observe($observe);  
+  
+}
+
 ```
